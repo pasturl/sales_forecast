@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 import pandas as pd
 import numpy as np
+from permetrics.regression import Metrics
 from sklearn.preprocessing import LabelEncoder
 
 
@@ -42,3 +44,14 @@ def encode_categorical(df, cols):
         df[col] = pd.Series(le.fit_transform(df[col]), index=df.index)
 
     return df
+
+
+def print_metrics(y_true, y_pred):
+    obj1 = Metrics(y_true, y_pred)
+    print("MAE {}".format(obj1.mean_absolute_error(clean=True, decimal=3)))
+    print("MSE {}".format(obj1.mean_squared_error(clean=True, decimal=3)))
+    print("RMSE {}".format(obj1.root_mean_squared_error(clean=True, decimal=3)))
+    print("MAPE {}".format(obj1.mean_absolute_percentage_error(clean=True, decimal=3)))
+    print("SMAPE {}".format(obj1.symmetric_mean_absolute_percentage_error(clean=True, decimal=3)))
+    print("MAAPE {}".format(obj1.mean_arctangent_absolute_percentage_error(clean=True, decimal=3)))
+    print("R2 {}".format(obj1.r2(clean=True, decimal=3)))
